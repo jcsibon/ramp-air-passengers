@@ -17,10 +17,10 @@ def haversine(row):
     on the earth (specified in decimal degrees)
     """
     # we map the rows
-    lon1 = row['D_lon']
-    lat1 = row['D_lat']
-    lon2 = row['A_lon']
-    lat2 = row['A_lat']
+    lon1 = row['DepLongitude']
+    lat1 = row['DepLatitude']
+    lon2 = row['ArrLongitude']
+    lat2 = row['ArrLatitude']
     
     # convert decimal degrees to radians 
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
