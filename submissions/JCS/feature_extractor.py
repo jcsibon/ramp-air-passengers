@@ -114,6 +114,9 @@ class FeatureExtractor(object):
             X_encoded = X_encoded.drop('ArrMaxGustSpeedKmH', axis=1)
             X_encoded = X_encoded.drop('DepPrecipitationmm', axis=1)
             X_encoded = X_encoded.drop('ArrPrecipitationmm', axis=1)
+            X_encoded = X_encoded.drop('DepState', axis=1)
+            X_encoded = X_encoded.drop('ArrState', axis=1)
+
 
         if True:
             m = X_encoded.isnull().any()
