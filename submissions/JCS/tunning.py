@@ -1,7 +1,12 @@
+#Random Search
 import xgboost as xgb
 from xgboost import XGBRegressor
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0)
 
 reg = XGBRegressor(max_depth=18, learning_rate=0.02, n_estimators=500,subsample=0.8, colsample_bytree=1, min_child_weight=5)
 
