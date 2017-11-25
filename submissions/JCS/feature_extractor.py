@@ -159,6 +159,9 @@ class FeatureExtractor(object):
             # print("========= COLUMNS WITH INFINITE VALUES =================")
             # print(m[m])
 
+        X_encoded = pd.DataFrame({'wd_5':X_encoded['wd_5'],'w_52':X_encoded['w_52'],'WIWB':X_encoded['WIWB'],'Oil':X_encoded['Oil'],'ArrCompanies':X_encoded['ArrCompanies'],'weekday':X_encoded['weekday'],'DepCompanies':X_encoded['DepCompanies'],'a_JFK':X_encoded['a_JFK'],'a_EWR':X_encoded['a_EWR'],'w_47':X_encoded['w_47'],'d_EWR':X_encoded['d_EWR'],'w_27':X_encoded['w_27'],'Distance':X_encoded['Distance'],'ArrForeigners':X_encoded['ArrForeigners'],'d_JFK':X_encoded['d_JFK'],'a_DTW':X_encoded['a_DTW']});
+
         X_array = X_encoded.values
+
 
         return X_array
