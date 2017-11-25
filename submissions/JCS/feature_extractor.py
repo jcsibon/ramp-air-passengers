@@ -2,7 +2,38 @@ import pandas as pd
 import numpy as np
 import os
 
+# from pandas.tseries.holiday import Holiday, USMemorialDay, AbstractHolidayCalendar, nearest_workday, MO
+from copy import deepcopy
+from datetime import datetime, timedelta
 
+# Define a mapped version of the Haversine formula to compute distances between airports. 
+# Inspired from https://stackoverflow.com
+#    /questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
+from math import radians, cos, sin, asin, sqrt
+
+def haversine(row):
+    """
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
+    """
+    # we map the rows
+    lon1 = row['D_lon']
+    lat1 = row['D_lat']
+    lon2 = row['A_lon']
+    lat2 = row['A_lat']
+    
+    # convert decimal degrees to radians 
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+    # haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    return c * r
+
+##
 class FeatureExtractor(object):
     def __init__(self):
         pass
@@ -118,13 +149,15 @@ class FeatureExtractor(object):
             X_encoded = X_encoded.drop('ArrState', axis=1)
 
 
+        X_encoded['Distance'] = X_encoded.apply(lambda row: haversine(row), axis=1)
+
         if True:
             m = X_encoded.isnull().any()
-            print("========= COLUMNS WITH NULL VALUES =================")
-            print(m[m])
+            # print("========= COLUMNS WITH NULL VALUES =================")
+            # print(m[m])
             m = np.isfinite(X_encoded.select_dtypes(include=['float64'])).any()
-            print("========= COLUMNS WITH INFINITE VALUES =================")
-            print(m[m])
+            # print("========= COLUMNS WITH INFINITE VALUES =================")
+            # print(m[m])
 
         X_array = X_encoded.values
 
