@@ -128,7 +128,7 @@ class FeatureExtractor(object):
 
         X_encoded.to_csv("X_array_2.csv")
 
-        ## Suppression des colonnes non numériques
+        ## Suppression des colonnes non numeriques
 
         X_encoded = X_encoded.drop('Departure', axis=1)
         X_encoded = X_encoded.drop('Arrival', axis=1)
